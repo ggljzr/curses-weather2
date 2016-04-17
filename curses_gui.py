@@ -16,7 +16,7 @@ PAIR_CYAN = 5
 PAIR_WHITE = 6
 PAIR_BLACK = 7
 
-PAIR_BLACK_BLUE = 8
+PAIR_BLUE_RED = 8
 
 def initCurses():
 
@@ -34,8 +34,6 @@ def initCurses():
     curses.init_pair(PAIR_CYAN, curses.COLOR_CYAN, curses.COLOR_BLACK)
     curses.init_pair(PAIR_WHITE, curses.COLOR_WHITE, curses.COLOR_BLACK)
     curses.init_pair(PAIR_BLACK, curses.COLOR_BLACK, curses.COLOR_BLACK)
-
-    curses.init_pair(PAIR_BLACK_BLUE, curses.COLOR_BLACK, curses.COLOR_BLUE)
 
     curses.noecho()
     curses.cbreak()
@@ -62,7 +60,7 @@ class Window(object):
         self.window_name = window_name
         self.window = curses.newwin(size_rows, size_columns, y, x)
         self.drawWindowBorder()
-        self.window.addstr(0,0, window_name)
+
 
     def drawHLine(self, row, col, length, color):
         for i in range(col, col + length):
@@ -96,12 +94,16 @@ class Window(object):
             except:
                 curses.error
 
+    def drawName(self):
+        self.window.addstr(0,0,self.window_name, curses.A_BOLD | curses.color_pair(PAIR_BLUE))
+
     def drawWindowBorder(self):
         self.drawHLine(0, 0, self.columns, PAIR_RED)
         self.drawHLine(self.rows - 1, 0, self.columns,PAIR_RED)
 
         self.drawVLineCorners(0, self.columns - 1, self.rows,PAIR_RED, True)
         self.drawVLineCorners(0, 0, self.rows, PAIR_RED, False)
+        self.drawName()
 
     def refresh(self):
         self.window.refresh()
