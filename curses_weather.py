@@ -163,9 +163,19 @@ class Forecast_window(cg.Window):
 class Info_window(object):
 
     def __init__(self, term_rows, term_cols):
+        self.rows = term_rows
+        self.cols = term_cols
         self.window = curses.newwin(1, term_cols, term_rows - 1, 0)
-        self.window.addstr(0, 1, 'Weather from www.openweathermap.org',
-                           curses.A_BOLD | curses.color_pair(cg.PAIR_CYAN))
 
-    def refresh(self):
+    def update(self, cur_loc, loc_num):
+        navInf = '<F5 refresh><Prev {}/{} Next> '.format(cur_loc, loc_num)
+        try:
+            self.window.addstr(0, 1, 'Weather from www.openweathermap.org',
+                              curses.A_BOLD | curses.color_pair(cg.PAIR_CYAN))
+            self.window.addstr(0, self.cols - len(navInf), navInf,
+                              curses.A_BOLD | curses.color_pair(cg.PAIR_RED))
+        except:
+            pass
         self.window.refresh()
+
+

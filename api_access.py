@@ -3,6 +3,7 @@ import json
 
 OPENWEATHER_URL_CURRENT = 'http://api.openweathermap.org/data/2.5/weather'
 OPENWEATHER_URL_FORECAST = 'http://api.openweathermap.org/data/2.5/forecast'
+
 class Location(object):
     def __init__(self, current_weather_data):
         self.lon = current_weather_data['coord']['lon']
