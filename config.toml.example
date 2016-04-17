@@ -4,3 +4,8 @@ key = 'your api key'
 [weather]
 locations = ['Prague', 'Vienna', 'Warsaw']
 units = 'metric'
+
+#if 1, then outputs forecast for 5 days
+#(or less if they dont fit on the screen)
+#else outputs forecast for every 6 hours
+daily = 0

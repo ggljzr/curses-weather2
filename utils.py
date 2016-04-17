@@ -1,6 +1,11 @@
 import icons
 import time
 
+def getWeekDay(unixTime):
+    timeStruct = time.localtime(unixTime)
+    weekday = time.strftime('%a', timeStruct)
+    return weekday
+
 def getDateFormat(unixTime):
     timeStruct = time.localtime(unixTime)
     dateString = time.strftime('%Y-%m-%d', timeStruct)

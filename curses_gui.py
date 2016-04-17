@@ -18,6 +18,9 @@ PAIR_BLACK = 7
 
 PAIR_BLUE_RED = 8
 
+MIN_ROWS = 26
+MIN_COLS = 70
+
 def initCurses():
 
     locale.setlocale(locale.LC_ALL, '')
