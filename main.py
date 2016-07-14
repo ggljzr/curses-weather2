@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 import curses
 import curses_gui as cg
 import curses_weather as cw
@@ -5,6 +6,7 @@ import locale
 import subprocess
 import api_access
 import pytoml as toml
+import sys
 
 loc_win = None
 cur_win = None
@@ -27,7 +29,7 @@ if __name__ == '__main__':
 
     if term_rows < cg.MIN_ROWS or term_cols < cg.MIN_COLS:
         print("requires minimal terminal size {}x{} (yours {}x{})".format(
-            cg.MIN_COLS, cg.MIN_ROWS, term_col, term_rows))
+            cg.MIN_COLS, cg.MIN_ROWS, term_cols, term_rows))
         sys.exit()
 
     # reading config
