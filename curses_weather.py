@@ -22,13 +22,17 @@ class Location_window(cg.Window):
         str_lon = "Lon: {}".format(location.lon)
         str_lat = "Lat: {}".format(location.lat)
 
-        try:
-            self.window.addstr(2, 1, location.city, curses.A_BOLD)
-            self.window.addstr(3, 1, str_lon, curses.color_pair(cg.PAIR_CYAN))
-            self.window.addstr(4, 1, str_lat, curses.color_pair(cg.PAIR_CYAN))
-            self.window.addstr(5, 1, str_country, curses.color_pair(cg.PAIR_GREEN))
-        except curses.error:
-            pass
+        current_row = 2
+        #weird, probably needs refactoring
+        for entry in [(location.city, curses.A_BOLD), 
+                      (str_lon, curses.color_pair(cg.PAIR_GREEN)), 
+                      (str_lat, curses.color_pair(cg.PAIR_GREEN)), 
+                      (str_country, curses.color_pair(cg.PAIR_CYAN) | curses.A_BOLD)]:
+            try:
+                self.window.addstr(current_row, 1, entry[0], entry[1])
+                current_row += 1
+            except curses.error:
+                pass
 
         self.refresh()
 
@@ -73,31 +77,23 @@ class Current_weather_window(cg.Window):
         self.window.clear()
         self.drawWindowBorder()
 
-        try:
-            self.window.addstr(2, rightOffset, temperature,
+        current_row = 2
+        for entry in [temperature, pressure, humidity, wind]:
+            try:
+                self.window.addstr(current_row, rightOffset, entry,
                                curses.color_pair(cg.PAIR_YELLOW))
-            self.window.addstr(3, rightOffset, pressure,
-                               curses.color_pair(cg.PAIR_YELLOW))
-            self.window.addstr(4, rightOffset, humidity,
-                               curses.color_pair(cg.PAIR_YELLOW))
-            self.window.addstr(5, rightOffset, wind,
-                               curses.color_pair(cg.PAIR_YELLOW))
+                current_row += 1
+            except curses.error:
+                pass
 
-        except curses.error:
-            pass
-
-        try:
-            self.window.addstr(2, leftOffset + icons.iconWidth +
-                               1, date, curses.color_pair(cg.PAIR_CYAN))
-            self.window.addstr(3, leftOffset + icons.iconWidth + 1,
-                               curWeather, curses.color_pair(cg.PAIR_CYAN))
-            self.window.addstr(4, leftOffset + icons.iconWidth + 1,
-                               sunrise, curses.color_pair(cg.PAIR_CYAN))
-            self.window.addstr(5, leftOffset + icons.iconWidth + 1,
-                               sunset, curses.color_pair(cg.PAIR_CYAN))
-
-        except curses.error:
-            pass
+        current_row = 2
+        for entry in [date, curWeather, sunrise, sunset]:
+            try:
+                self.window.addstr(current_row, leftOffset + icons.iconWidth +
+                               1, entry, curses.color_pair(cg.PAIR_CYAN))
+                current_row += 1
+            except curses.error:
+                pass
 
         try:
             icons.drawIcon(leftOffset, 1, icon, self.window)
