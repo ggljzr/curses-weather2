@@ -70,8 +70,8 @@ class Window(object):
             try:
                 self.window.addch(row, i, curses.ACS_HLINE,
                              curses.A_BOLD | curses.color_pair(color))
-            except:
-                curses.error
+            except curses.error:
+                pass
 
     def drawVLineCorners(self, row, col, length, color, right):
 
@@ -87,15 +87,15 @@ class Window(object):
                          curses.A_BOLD | curses.color_pair(color))
             self.window.addch(row + length - 1, col, lowerCorner,
                          curses.A_BOLD | curses.color_pair(color))
-        except:
-            curses.error
+        except curses.error:
+            pass
 
         for i in range(row + 1, row + length - 1):
             try:
                 self.window.addch(i, col, curses.ACS_VLINE,
                              curses.A_BOLD | curses.color_pair(color))
-            except:
-                curses.error
+            except curses.error:
+                pass
 
     def drawName(self):
         self.window.addstr(0,0,self.window_name, curses.A_BOLD | curses.color_pair(PAIR_BLUE))
