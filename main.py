@@ -23,6 +23,10 @@ def refresh_weather(current_weather_data, forecast_weather_data, location):
 
 if __name__ == '__main__':
 
+    if '--help' in sys.argv:
+        print("-d or --daily for daily forecast, otherwise hourly forecast")
+        sys.exit()
+
     term_rows, term_cols = subprocess.check_output(['stty', 'size']).split()
     term_rows = int(term_rows)
     term_cols = int(term_cols)
@@ -48,6 +52,9 @@ if __name__ == '__main__':
 
     stdscr = cg.initCurses()
     daily = bool(config['weather']['daily'])
+    if '-d' in sys.argv or '--daily' in sys.argv:
+        daily = True #overrides config file
+
 
     loc_win = cw.Location_window()
     cur_win = cw.Current_weather_window(term_cols)
